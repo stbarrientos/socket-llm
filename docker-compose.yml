@@ -1,0 +1,11 @@
+services:
+  app:
+    build: .
+    ports:
+      - 7860:7860
+    volumes:
+      - ./app:/usr/llm/app
+      - ./hf_cache:/usr/llm/.cache
+    environment:
+      HF_HOME: /usr/llm/.cache
+    env_file: .env

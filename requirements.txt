@@ -1,0 +1,6 @@
+protobuf==5.28.3
+scipy==1.11.4
+torch==2.5.0
+sentencepiece==0.2.0
+transformers==4.46.0
+ctransformers==0.2.27
