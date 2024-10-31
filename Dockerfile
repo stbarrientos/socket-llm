@@ -1,4 +1,4 @@
-FROM python:3.9
+FROM python:3.9 AS server
 
 WORKDIR /usr/llm/app
 
@@ -6,7 +6,7 @@ COPY ./requirements.txt /usr/llm/requirements.txt
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir --upgrade -r /usr/llm/requirements.txt
 
-CMD [ "python", "app.py" ]
+CMD [ "python", "server.py" ]
 
 # Build stage for Rust client
 FROM rust:latest AS rust-client

@@ -1,6 +1,8 @@
 services:
-  app:
-    build: .
+  server:
+    build:
+      context: .
+      target: server
     ports:
       - 7860:7860
     volumes:
