@@ -9,3 +9,10 @@ services:
     environment:
       HF_HOME: /usr/llm/.cache
     env_file: .env
+
+  client:
+    build:
+      context: .
+      target: rust-client
+    volumes:
+      - ./rust:/usr/src/rust
