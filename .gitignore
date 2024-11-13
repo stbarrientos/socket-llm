@@ -1,3 +1,7 @@
 .env
 hf_cache/*
 !hf_cache/.keep
+rust/target
+/app/test/__pycache__
+/app/__pycache__
+.vscode
