@@ -1,20 +1,24 @@
 services:
+  test:
+    build:
+      context: .
+      target: test
+    volumes:
+      - ./app:/usr/llm/app
+      - ./hf_cache:/usr/llm/.cache
   server:
     build:
       context: .
       target: server
     ports:
-      - 7860:7860
+      - 65432:65432
     volumes:
       - ./app:/usr/llm/app
       - ./hf_cache:/usr/llm/.cache
     environment:
       HF_HOME: /usr/llm/.cache
-    env_file: .env
 
   client:
     build:
       context: .
       target: rust-client
-    volumes:
-      - ./rust:/usr/src/rust

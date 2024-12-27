@@ -10,17 +10,28 @@ fn main() {
             // Send a message to the server
             let msg = b"What is the capital of the USA?";
             stream.write(msg).unwrap();
+            stream.write(b"__close__").unwrap();
             println!("Sent message: {}", String::from_utf8_lossy(msg));
 
             // Read the response from the server
-            let mut buffer = [0; 1024];
-            match stream.read(&mut buffer) {
-                Ok(_) => {
-                    let response = String::from_utf8_lossy(&buffer);
-                    println!("Received response: {}", response);
-                }
-                Err(e) => {
-                    println!("Failed to receive data: {}", e);
+            let mut temp_buffer = [0; 512];
+            loop {
+                match stream.read(&mut temp_buffer) {
+                    Ok(n) => {
+                        if n == 0 {
+                            break;
+                        }
+                        let message = String::from_utf8_lossy(&temp_buffer[..n]);
+                        println!("Received message: {}", message);
+                        if message.ends_with("__close__") {
+                            println!("Closing connection");
+                            break;
+                        }
+                    }
+                    Err(e) => {
+                        println!("Failed to receive data: {}", e);
+                        break;
+                    }
                 }
             }
         }
