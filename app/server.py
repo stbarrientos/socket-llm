@@ -31,7 +31,7 @@ def start_server():
     message = ''.join(chunks)
     print(f"Received message: {message}")
 
-    streamer = LLMResponseStreamer(client_socket, stream_responses = True)
+    streamer = LLMResponseStreamer(client_socket = client_socket, message_terminator = MESSAGE_TERMINATOR, stream_responses = True)
     local_llm.respond_to_prompt(message, streamer)
     client_socket.close()
 
